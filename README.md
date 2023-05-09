@@ -30,7 +30,7 @@ sudo apt-get install wireshark
 
 4. Для того чтобы наш пользователь мог работать с `Wireshark` необходимо добавить пользователя в группу:
 ```bash
-sudo dpkg-reconfigure wireshark--common # выбрать Yes
+sudo dpkg-reconfigure wireshark-common # выбрать Yes
 ```
 ```bash
 sudo adduser $USER wireshark
