@@ -105,13 +105,14 @@ git clone https://github.com/ntop/nDPI.git
 ```bash
 cd nDPI
 ```
-4. Смотрим доступные ветки, чтобы найти последнюю стабильную версию `nDPI`, и переходим на эту ветку:
+4. Смотрим стабильные доступные ветки (нас интересует ветка 4.4):
 ```bash
 git branch -a
 ```
 ```bash
-git checkout 4.6-stable
+git checkout 4.4-stable
 ```
+Нас интересует ветка 4.4
 5. Устанавливаем `nDPI` в нашу систему
 ```bash
 ./autogen.sh
