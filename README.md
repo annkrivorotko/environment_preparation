@@ -112,7 +112,6 @@ git branch -a
 ```bash
 git checkout 4.4-stable
 ```
-Нас интересует ветка 4.4
 5. Устанавливаем `nDPI` в нашу систему
 ```bash
 ./autogen.sh
