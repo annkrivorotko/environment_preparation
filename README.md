@@ -39,55 +39,46 @@ sudo adduser $USER wireshark
 
 ---
 
-<h2 align="center">Установка <code>PostgreSQL</code> и <code>pgAdmin4</code></h2>
+<h2 align="center">Установка <code>Neo4j</code></h2>
 
-<h3 align="center">PostgreSQL</h3>
-
-1. Открываем в `Ubuntu` терминал и пишем команду для обновления списка пакетов:
-```bash
-sudo apt update
-```
-2. Устанавливаем `postgresql` и `postgresql-contrib`:
-```bash
-sudo apt install postgresql postgresql-contrib
-```
-3. Проверяем статус `postgresql`:
-```bash
-service postgresql status
-```
-4. Сразу установим пароль для пользователя `postgres`:
-```bash
-sudo -u postgres psql postgres # заходим в PostgreSQL shell
-```
-```bash
-\password postgres # меняем пароль для postgres
-```
-```bash
-\q # выходим из PostgreSQL shell
-```
-
-
-
-<h3 align="center">pgAdmin4</h3>
-
-1. Устанавливаем утилиту `curl`:
+1. Открываем терминал Ubuntu и устанавливаем утилиту `curl`:
 ```bash
 sudo apt install curl
 ```
-2. Установливаем публичный ключ для репозитория:
+2. Загружаем ключ безопасности для пакетов `Neo4j`, чтобы удостовериться в подлинности и целостности пакетов при их установке:
 ```bash
-curl -fsS https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /usr/share/keyrings/packages-pgadmin-org.gpg
+curl -fsSL https://debian.neo4j.com/neotechnology.gpg.key |sudo gpg --dearmor -o /usr/share/keyrings/neo4j.gpg
 ```
-3. Создаём файл конфигурации репозитория:
+3. Добавляем репозиторий `Neo4j` в источники `APT` нашей системы:
 ```bash
-sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/packages-pgadmin-org.gpg] https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+echo "deb [signed-by=/usr/share/keyrings/neo4j.gpg] https://debian.neo4j.com stable 4.1" | sudo tee -a /etc/apt/sources.list.d/neo4j.list
 ```
-4. Устанавливаем `pgadmin4`:
+4. Обновляем списки пакетов, после чего установливаем `Neo4j` и все его зависимости:
 ```bash
-sudo apt install pgadmin4
+sudo apt update
 ```
-5. После установки `pgAdmin4` доступен в меню приложений. 
+```bash
+sudo apt install neo4j
+```
 
+5. После установки `Neo4j` включим автозапуск при загрузке системы, запустим его и проверим его статус: 
+```bash
+sudo systemctl enable neo4j.service
+```
+```bash
+sudo systemctl start neo4j.service
+```
+```bash
+sudo systemctl status neo4j.service
+```
+6. Вызывем облочку `cypher-shell`, входим в систему и меняем пароль пользователю `neo4j` (по умолчанию: имя пользователя – neo4j, пароль – neo4j):
+```bash
+cypher-shell
+```
+```
+:exit
+```
+7. После выполнения всех шагов можно пользоваться пользовательским интерфейсом `Neo4j` по адресу http://localhost:7474/ .
 ---
 
 <h2 align="center">Установка <code>nDPI</code></h2>
